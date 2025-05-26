@@ -119,10 +119,12 @@ function getAvailableProducts(products) {
 console.log(getProductNamesAndPrices(products));
 // 기대 출력: [["Laptop", 1000], ["Shoes", 50], ["Book", 20]]
 console.log(getAvailableProducts(products));
+// 기대 출력: [["Laptop", 1000, true], ["Book", 20, true]]
+// 문제 4. 사용자 정보를 업데이트하는 함수
 // 나이가 없으면 기본값 18 사용, 리턴 타입 작성
 function updateUser(user) {
-    // 구현
-    return { name: user.name, age: 18 };
+    var age = user.age ? user.age : 18;
+    return { name: user.name, age: age };
 }
 // 테스트
 console.log(updateUser({ name: "Charlie" })); // { name: "Charlie", age: 18 }
@@ -134,8 +136,9 @@ var productList = [
 ];
 // 매개변수 타입, 리턴 타입 작성
 function getProductsByCategory(category) {
-    // 구현
-    return [];
+    return productList
+        .filter(function (product) { return product.category === category; })
+        .map(function (product) { return product.name; });
 }
 // 테스트
 console.log(getProductsByCategory("Electronics")); // ["Laptop"]

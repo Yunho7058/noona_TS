@@ -150,15 +150,15 @@ console.log(getAvailableProducts(products));
 // 기대 출력: [["Laptop", 1000, true], ["Book", 20, true]]
 
 // 문제 4. 사용자 정보를 업데이트하는 함수
-type UserInput = {
-  name: string;
-  age?: number;
-};
 
 // 나이가 없으면 기본값 18 사용, 리턴 타입 작성
-function updateUser(user: UserInput): { name: string; age: number } {
-  // 구현
-  return { name: user.name, age: 18 };
+function updateUser(user: { name: string; age?: number }): {
+  name: string;
+  age: number;
+} {
+  const age = user.age ? user.age : 18;
+
+  return { name: user.name, age: age };
 }
 
 // 테스트
@@ -171,7 +171,6 @@ type Product = {
   price: number;
   category?: string;
 };
-
 const productList: Product[] = [
   { name: "Laptop", price: 1000, category: "Electronics" },
   { name: "Shoes", price: 50, category: "Fashion" },
@@ -180,10 +179,10 @@ const productList: Product[] = [
 
 // 매개변수 타입, 리턴 타입 작성
 function getProductsByCategory(category: string): string[] {
-  // 구현
-  return [];
+  return productList
+    .filter((product) => product.category === category)
+    .map((product) => product.name);
 }
-
 // 테스트
 console.log(getProductsByCategory("Electronics")); // ["Laptop"]
 console.log(getProductsByCategory("Fashion")); // ["Shoes"]
