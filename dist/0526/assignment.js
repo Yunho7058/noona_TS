@@ -1,20 +1,21 @@
+"use strict";
 // 문제은행 - 1강 원시타입
 // 문제 1. 다음 변수들의 타입을 지정해주세요
-var userName; // 예: 이름
-var userAge; // 예: 나이
-var isAdmin; // 예: 관리자 여부
+let userName; // 예: 이름
+let userAge; // 예: 나이
+let isAdmin; // 예: 관리자 여부
 userName = "Alice";
 userAge = 25;
 isAdmin = true;
 //## 문제 2. 아래 변수들에 적절한 타입과 초기값을 지정하세요.
 // 변수 선언과 초기값 지정
-var productName = "키보드"; // 상품 이름
-var productPrice = 100000; // 상품 가격
-var isAvailable = true; // 상품 재고 여부
+let productName = "키보드"; // 상품 이름
+let productPrice = 100000; // 상품 가격
+let isAvailable = true; // 상품 재고 여부
 // 예시 출력
-console.log("\uC0C1\uD488\uBA85: ".concat(productName, ", \uAC00\uACA9: ").concat(productPrice, ", \uC7AC\uACE0 \uC5EC\uBD80: ").concat(isAvailable));
+console.log(`상품명: ${productName}, 가격: ${productPrice}, 재고 여부: ${isAvailable}`);
 // 문제 3. 두 숫자를 더하는 함수를 작성하고, 함수의 매개변수와 반환값에 타입을 지정하세요.
-var addNumbers = function (a, b) {
+const addNumbers = (a, b) => {
     return a + b;
 };
 console.log(addNumbers(5, 3));
@@ -24,7 +25,7 @@ function stringifyValue(value) {
     if (value === null || value === undefined) {
         return "값이 없습니다.";
     }
-    return "".concat(value);
+    return `${value}`;
 }
 // 함수 호출
 console.log(stringifyValue("Hello")); // "Hello"
@@ -80,7 +81,7 @@ console.log(isPrimitive([])); // false
 //   isAdmin: boolean;
 //   age?: number;
 // };
-var user = {
+let user = {
     name: "Alice",
     isAdmin: true,
 };
@@ -90,14 +91,14 @@ user = {
     isAdmin: false,
 };
 // 문제 2. 숫자만 담을 수 있는 읽기 전용 배열을 작성하세요
-var numbers = [1, 2, 3];
+const numbers = [1, 2, 3];
 // 아래 코드는 오류가 발생해야 합니다
 // numbers.push(4);
 // numbers[0] = 42;
 // 문제 3. 상품 배열에서 정보를 추출하는 함수 작성
 //1. 상품 이름과 가격만을 포함하는 새로운 배열을 생성하는 함수를 작성하세요.
 //2. 재고가 있는 상품만 포함하는 배열을 반환하는 함수를 작성하세요.
-var products = [
+const products = [
     ["Laptop", 1000, true],
     ["Shoes", 50, false],
     ["Book", 20, true],
@@ -105,15 +106,12 @@ var products = [
 // 1. 상품 이름과 가격만 반환하는 함수 (리턴 타입 작성)
 function getProductNamesAndPrices(products) {
     // 1. 이름이랑 가격만 -> map [] 배열안에 이름과 가격만 추출하기
-    return products.map(function (_a) {
-        var name = _a[0], price = _a[1];
-        return [name, price];
-    });
+    return products.map(([name, price]) => [name, price]);
 }
 // 2. 재고가 있는 상품만 반환하는 함수 (리턴 타입 작성)
 function getAvailableProducts(products) {
     // false 리턴하지말기
-    return products.filter(function (el) { return el[2]; });
+    return products.filter((el) => el[2]);
 }
 // 테스트
 console.log(getProductNamesAndPrices(products));
@@ -123,14 +121,14 @@ console.log(getAvailableProducts(products));
 // 문제 4. 사용자 정보를 업데이트하는 함수
 // 나이가 없으면 기본값 18 사용, 리턴 타입 작성
 function updateUser(user) {
-    var age = typeof user.age === "number" ? user.age : 18;
+    const age = typeof user.age === "number" ? user.age : 18;
     return { name: user.name, age: age };
 }
 // 테스트
 console.log(updateUser({ name: "Charlie" })); // { name: "Charlie", age: 18 }
 console.log(updateUser({ name: "Dana", age: 25 })); // { name: "Dana", age: 25 }
 console.log(updateUser({ name: "good", age: 0 })); // { name: "Dana", age: 25 }
-var productList = [
+const productList = [
     { name: "Laptop", price: 1000, category: "Electronics" },
     { name: "Shoes", price: 50, category: "Fashion" },
     { name: "Book", price: 20 },
@@ -138,8 +136,8 @@ var productList = [
 // 매개변수 타입, 리턴 타입 작성
 function getProductsByCategory(category) {
     return productList
-        .filter(function (product) { return product.category === category; })
-        .map(function (product) { return product.name; });
+        .filter((product) => product.category === category)
+        .map((product) => product.name);
 }
 // 테스트
 console.log(getProductsByCategory("Electronics")); // ["Laptop"]

@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES6", // 최신 JS 버전으로 컴파일
+    "module": "commonjs", // Node.js에서 사용하는 모듈 방식
+    "outDir": "./dist", // 컴파일된 JS 파일 나올 경로
+    "rootDir": "./", // .ts 파일 경로 기준
+    "strict": true, // 엄격한 타입 검사
+    "esModuleInterop": true, // import 호환성 지원
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": false // JS 파일 무시 (충돌 방지!)
+  },
+  "include": ["./**/*.ts"], // 컴파일 대상
+  "exclude": ["node_modules", "dist"] // 컴파일 제외 대상
+}
