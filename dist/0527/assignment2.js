@@ -1,17 +1,18 @@
+"use strict";
 // 문제은행 3강- type, interface
 // 타입 작성
-var user1 = {
+const user1 = {
     id: 1,
     name: "Alice",
 };
-var userWithEmail = {
+const userWithEmail = {
     id: 2,
     name: "Bob",
     email: "bob@example.com",
 };
 // 여기에 작성
 // User 타입을 사용하여 아래 객체를 작성하세요.
-var user2 = {
+const user2 = {
     id: 1,
     name: "Alice",
     address: {
@@ -20,23 +21,23 @@ var user2 = {
     },
 };
 // 여기에 작성
-var normalUser = {
+const normalUser = {
     id: 1,
     name: "Alice",
     email: "alice@example.com",
 };
-var adminUser = {
+const adminUser = {
     id: 2,
     name: "Bob",
     role: "Administrator",
 };
 // 여기에 작성
-var normalProduct = {
+const normalProduct = {
     id: 1,
     name: "Laptop",
     price: 1000,
 };
-var discountedProduct = {
+const discountedProduct = {
     id: 2,
     name: "Smartphone",
     price: 800,
@@ -44,7 +45,7 @@ var discountedProduct = {
 };
 // 여기에 작성
 // Order 타입을 사용하여 아래 객체를 작성하세요.
-var order = {
+const order = {
     orderId: 101,
     products: [
         { id: 1, name: "Laptop", price: 1000 },
@@ -53,12 +54,12 @@ var order = {
     totalPrice: 1050,
 };
 // 아래 객체를 작성하세요.
-var admin = {
+const admin = {
     id: 1,
     name: "Alice",
     role: "Administrator",
 };
-var guest = {
+const guest = {
     id: 2,
     name: "Bob",
     visitCount: 5,
@@ -88,7 +89,7 @@ var TaskStatus;
     TaskStatus["InProgress"] = "InProgress";
     TaskStatus["Completed"] = "Completed";
 })(TaskStatus || (TaskStatus = {}));
-function getStatusMessage(status) {
+function getStatusMessage1(status) {
     // 여기에 구현
     if (status === "Pending")
         return "작업이 대기 중입니다.";
@@ -99,9 +100,9 @@ function getStatusMessage(status) {
     return "err 발생.";
 }
 // 테스트 코드
-console.log(getStatusMessage(TaskStatus.Pending)); // "작업이 대기 중입니다."
-console.log(getStatusMessage(TaskStatus.InProgress)); // "작업이 진행 중입니다."
-console.log(getStatusMessage(TaskStatus.Completed)); // "작업이 완료되었습니다."
+console.log(getStatusMessage1(TaskStatus.Pending)); // "작업이 대기 중입니다."
+console.log(getStatusMessage1(TaskStatus.InProgress)); // "작업이 진행 중입니다."
+console.log(getStatusMessage1(TaskStatus.Completed)); // "작업이 완료되었습니다."
 /*
 ## 문제 2. 아래 조건에 따라 함수를 작성하세요.
 
@@ -147,9 +148,9 @@ function processTask(status, input) {
     if (status === "InProgress")
         return input.toLowerCase();
     if (status === "Completed")
-        return "\uC644\uB8CC:".concat(input);
+        return `완료:${input}`;
     if (status === "Failed")
-        throw new Error("작업이 실패했습니다.");
+        return "작업이 실패했습니다.";
     return "";
 }
 // 테스트 코드
@@ -192,18 +193,18 @@ var LogLevel;
     LogLevel["Debug"] = "Debug";
 })(LogLevel || (LogLevel = {}));
 // 로그 함수 구현
-var logMessage = function (message, level) {
+const logMessage = (message, level) => {
     // 여기에 구현
     if (level === "Info") {
-        console.log("[INFO] ".concat(message));
+        console.log(`[INFO] ${message}`);
         return;
     }
     else if (level === "Error") {
-        console.error("[ERROR] ".concat(message));
+        console.error(`[ERROR] ${message}`);
         return;
     }
     else if (level === "Debug") {
-        console.debug("[DEBUG] ".concat(message));
+        console.debug(`[DEBUG] ${message}`);
         return;
     }
 };
@@ -235,7 +236,7 @@ function processUnknown(input) {
         return input * 10;
     }
     else {
-        throw new Error("지원되지 않는 타입입니다.");
+        return "지원되지 않는 타입입니다.";
     }
 }
 // 테스트 코드

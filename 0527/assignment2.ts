@@ -290,7 +290,7 @@ function processTask(status: TaskStatus1, input: unknown): string {
   if (status === "Pending") return input.toUpperCase();
   if (status === "InProgress") return input.toLowerCase();
   if (status === "Completed") return `완료:${input}`;
-  if (status === "Failed") throw new Error("작업이 실패했습니다.");
+  if (status === "Failed") return "작업이 실패했습니다.";
   return "";
 }
 
@@ -384,7 +384,7 @@ function processUnknown(input: unknown): string | number {
   } else if (typeof input === "number") {
     return input * 10;
   } else {
-    throw new Error("지원되지 않는 타입입니다.");
+    return "지원되지 않는 타입입니다.";
   }
 }
 
