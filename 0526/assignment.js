@@ -123,12 +123,13 @@ console.log(getAvailableProducts(products));
 // 문제 4. 사용자 정보를 업데이트하는 함수
 // 나이가 없으면 기본값 18 사용, 리턴 타입 작성
 function updateUser(user) {
-    var age = user.age ? user.age : 18;
+    var age = typeof user.age === "number" ? user.age : 18;
     return { name: user.name, age: age };
 }
 // 테스트
 console.log(updateUser({ name: "Charlie" })); // { name: "Charlie", age: 18 }
 console.log(updateUser({ name: "Dana", age: 25 })); // { name: "Dana", age: 25 }
+console.log(updateUser({ name: "good", age: 0 })); // { name: "Dana", age: 25 }
 var productList = [
     { name: "Laptop", price: 1000, category: "Electronics" },
     { name: "Shoes", price: 50, category: "Fashion" },

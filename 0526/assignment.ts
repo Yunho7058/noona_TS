@@ -154,9 +154,9 @@ console.log(getAvailableProducts(products));
 // 나이가 없으면 기본값 18 사용, 리턴 타입 작성
 function updateUser(user: { name: string; age?: number }): {
   name: string;
-  age: number;
+  age?: number;
 } {
-  const age = user.age ? user.age : 18;
+  const age = typeof user.age === "number" ? user.age : 18;
 
   return { name: user.name, age: age };
 }
@@ -164,6 +164,7 @@ function updateUser(user: { name: string; age?: number }): {
 // 테스트
 console.log(updateUser({ name: "Charlie" })); // { name: "Charlie", age: 18 }
 console.log(updateUser({ name: "Dana", age: 25 })); // { name: "Dana", age: 25 }
+console.log(updateUser({ name: "good", age: 0 })); // { name: "Dana", age: 25 }
 
 // 문제 5. 특정 카테고리 상품 이름 반환 함수
 type Product = {
