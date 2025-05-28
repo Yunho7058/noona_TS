@@ -23,7 +23,7 @@ function processInput(input: TInput): number | string {
   } else if ("message" in input) {
     return input.message.toUpperCase();
   }
-  // throw new Error("지원하지 않는 입력 타입입니다.");
+  throw new Error("지원하지 않는 입력 타입입니다.");
 }
 
 // 테스트 코드
@@ -126,7 +126,11 @@ type Circle = { radius: number };
 
 // 사용자 정의 타입 가드
 function isRectangle(shape: unknown): shape is Rectangle {
-  return "width" in shape && "height" in shape;
+  // as 타입을 지정하기
+  return (
+    (shape as Rectangle).width !== undefined &&
+    (shape as Rectangle).height !== undefined
+  );
 }
 
 function calculateArea(shape: Rectangle | Circle): number {
@@ -148,20 +152,35 @@ console.log(calculateArea({ radius: 7 })); // 153.93804002589985 (대략 π * 7�
 
 Square: { type: "square"; side: number }
 Circle: { type: "circle"; radius: number }
-calculateArea라는 함수는 두 타입의 넓이를 계산하려고 하지만, 유니온 타입을 제대로 처리하지 않고 사용할 경우 런타임 에러가 발생할 가능성이 생길 수 있다. 이를 해결 방법을 작성하세요.
+calculateArea라는 함수는 두 타입의 넓이를 계산하려고 하지만, 
+유니온 타입을 제대로 처리하지 않고 사용할 경우 런타임 에러가 발생할 가능성이 생길 수 있다. 이를 해결 방법을 작성하세요.
 해결 방법:
-
 식별 가능한 유니온(type 속성)을 사용하여 타입을 안전하게 좁히는 코드를 작성하세요.
 exhaustiveness check를 추가하여, 새로운 타입이 추가되더라도 타입 안정성을 유지하도록 구현하세요.
 */
 
-type Shape = { side: number } | { radius: number };
-
+type Square = { type: "square"; side: number };
+type TCircle = { type: "circle"; radius: number };
+type Shape = Square | TCircle;
 // 넓이를 계산하는 함수
 function areaCalculate(shape: Shape): number {
-  // 여기에 구현
+  // tpye 따라 분류 후 조건 실행
+  switch (shape.type) {
+    case "square":
+      return shape.side ** 2;
+    case "circle":
+      return Math.PI * shape.radius ** 2;
+    default:
+      // exhaustiveness check -> 이중 안정 장치, 만약 타입을 지정 안했을때 에러 발생 하게, 여러 케이스 만들때 유효 할듯 싶다
+      const _exhaustiveCheck: never = shape;
+      throw new Error(`Unhandled shape: ${_exhaustiveCheck}`);
+  }
 }
 
 // 테스트 코드
-console.log(areaCalculate({ side: 5 })); // 기대 출력: 25
-console.log(areaCalculate({ radius: 7 })); // 기대 출력: 153.93804002589985
+console.log(areaCalculate({ type: "square", side: 5 })); // 25
+console.log(areaCalculate({ type: "circle", radius: 7 })); // 153.93804002589985
+
+// 테스트 코드
+// console.log(areaCalculate({ side: 5 })); // 기대 출력: 25
+// console.log(areaCalculate({ radius: 7 })); // 기대 출력: 153.93804002589985
