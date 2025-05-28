@@ -1,67 +1,67 @@
 "use strict";
 // 문제은행 3강- type, interface
 const userFirst = {
-  id: 1,
-  name: "Alice",
+    id: 1,
+    name: "Alice",
 };
 const userWithEmail = {
-  id: 2,
-  name: "Bob",
-  email: "bob@example.com",
+    id: 2,
+    name: "Bob",
+    email: "bob@example.com",
 };
 // 여기에 작성
 // User 타입을 사용하여 아래 객체를 작성하세요.
 const user2 = {
-  id: 1,
-  name: "Alice",
-  address: {
-    city: "Seoul",
-    zipCode: 12345,
-  },
+    id: 1,
+    name: "Alice",
+    address: {
+        city: "Seoul",
+        zipCode: 12345,
+    },
 };
 // 여기에 작성
 const normalUser = {
-  id: 1,
-  name: "Alice",
-  email: "alice@example.com",
+    id: 1,
+    name: "Alice",
+    email: "alice@example.com",
 };
 const adminUser = {
-  id: 2,
-  name: "Bob",
-  role: "Administrator",
+    id: 2,
+    name: "Bob",
+    role: "Administrator",
 };
 // extends or $ {} 속성 추가 가능
 const normalProduct = {
-  id: 1,
-  name: "Laptop",
-  price: 1000,
+    id: 1,
+    name: "Laptop",
+    price: 1000,
 };
 const discountedProduct = {
-  id: 2,
-  name: "Smartphone",
-  price: 800,
-  discount: 10,
+    id: 2,
+    name: "Smartphone",
+    price: 800,
+    discount: 10,
 };
 // 여기에 작성
 // Order 타입을 사용하여 아래 객체를 작성하세요.
 const order = {
-  orderId: 101,
-  products: [
-    { id: 1, name: "Laptop", price: 1000 },
-    { id: 2, name: "Mouse", price: 50 },
-  ],
-  totalPrice: 1050,
+    orderId: 101,
+    products: [
+        { id: 1, name: "Laptop", price: 1000 },
+        { id: 2, name: "Mouse", price: 50 },
+    ],
+    totalPrice: 1050,
 };
 // 아래 객체를 작성하세요.
 const admin = {
-  id: 1,
-  name: "Alice",
-  role: "Administrator",
+    id: 1,
+    name: "Alice",
+    role: "Administrator",
 };
 const guest = {
-  id: 2,
-  name: "Bob",
-  visitCount: 5,
+    id: 2,
+    name: "Bob",
+    visitCount: 5,
 };
 // ---------
 /*
@@ -84,23 +84,23 @@ Completed: "작업이 완료되었습니다."
 // 여기에 작성
 var TaskStatus;
 (function (TaskStatus) {
-  TaskStatus["Pending"] = "Pending";
-  TaskStatus["InProgress"] = "InProgress";
-  TaskStatus["Completed"] = "Completed";
+    TaskStatus["Pending"] = "Pending";
+    TaskStatus["InProgress"] = "InProgress";
+    TaskStatus["Completed"] = "Completed";
 })(TaskStatus || (TaskStatus = {}));
 // 열거형 타입(enumeration type)
 function getStatusMessage1(status) {
-  // enum -> switch 문 사용하기
-  switch (status) {
-    case TaskStatus.Pending:
-      return "작업이 대기 중 입니다.";
-    case TaskStatus.InProgress:
-      return "작업이 진행 중 입니다.";
-    case TaskStatus.Completed:
-      return "작업이 완료되었습니다.";
-    default:
-      return "알 수 없는 상태입니다.";
-  }
+    // enum -> switch 문 사용하기
+    switch (status) {
+        case TaskStatus.Pending:
+            return "작업이 대기 중 입니다.";
+        case TaskStatus.InProgress:
+            return "작업이 진행 중 입니다.";
+        case TaskStatus.Completed:
+            return "작업이 완료되었습니다.";
+        default:
+            return "알 수 없는 상태입니다.";
+    }
 }
 // 테스트 코드
 console.log(getStatusMessage1(TaskStatus.Pending)); // "작업이 대기 중입니다."
@@ -134,29 +134,29 @@ console.log(getStatusMessage1(TaskStatus.Completed)); // "작업이 완료되었
 // 여기에 작성
 var SecondProblemTaskStatus;
 (function (SecondProblemTaskStatus) {
-  SecondProblemTaskStatus["Pending"] = "Pending";
-  SecondProblemTaskStatus["InProgress"] = "InProgress";
-  SecondProblemTaskStatus["Completed"] = "Completed";
-  SecondProblemTaskStatus["Failed"] = "Failed";
+    SecondProblemTaskStatus["Pending"] = "Pending";
+    SecondProblemTaskStatus["InProgress"] = "InProgress";
+    SecondProblemTaskStatus["Completed"] = "Completed";
+    SecondProblemTaskStatus["Failed"] = "Failed";
 })(SecondProblemTaskStatus || (SecondProblemTaskStatus = {}));
 function processTask(status, input) {
-  // 문자가 아닐떄, 타입 상태 확인해서 거르기
-  if (typeof input !== "string") {
-    throw new Error("입력값은 문자열이어야 합니다.");
-  }
-  // 가독성이나 열거형 타입을 사용할때는 switch 문을 사용하고 err 처리 해주기
-  switch (status) {
-    case SecondProblemTaskStatus.Pending:
-      return input.toUpperCase();
-    case SecondProblemTaskStatus.InProgress:
-      return input.toLowerCase();
-    case SecondProblemTaskStatus.Completed:
-      return `완료: ${input}`;
-    case SecondProblemTaskStatus.Failed:
-      throw new Error("작업이 실패했습니다.");
-    default:
-      throw new Error("알 수 없는 상태입니다.");
-  }
+    // 문자가 아닐떄, 타입 상태 확인해서 거르기
+    if (typeof input !== "string") {
+        throw new Error("입력값은 문자열이어야 합니다.");
+    }
+    // 가독성이나 열거형 타입을 사용할때는 switch 문을 사용하고 err 처리 해주기
+    switch (status) {
+        case SecondProblemTaskStatus.Pending:
+            return input.toUpperCase();
+        case SecondProblemTaskStatus.InProgress:
+            return input.toLowerCase();
+        case SecondProblemTaskStatus.Completed:
+            return `완료: ${input}`;
+        case SecondProblemTaskStatus.Failed:
+            throw new Error("작업이 실패했습니다.");
+        default:
+            throw new Error("알 수 없는 상태입니다.");
+    }
 }
 // 테스트 코드
 console.log(processTask(SecondProblemTaskStatus.Pending, "task1"));
@@ -193,26 +193,26 @@ console.log(processTask(SecondProblemTaskStatus.Pending, 42));
 // 여기에 작성
 var LogLevel;
 (function (LogLevel) {
-  LogLevel["Info"] = "Info";
-  LogLevel["Error"] = "Error";
-  LogLevel["Debug"] = "Debug";
+    LogLevel["Info"] = "Info";
+    LogLevel["Error"] = "Error";
+    LogLevel["Debug"] = "Debug";
 })(LogLevel || (LogLevel = {}));
 // 로그 함수 구현
 const logMessage = (message, level) => {
-  // 마찬기자로 switch 문으로 교체
-  switch (level) {
-    case LogLevel.Info:
-      console.log(`[INFO] ${message}`);
-      break;
-    case LogLevel.Error:
-      console.error(`[ERROR] ${message}`);
-      break;
-    case LogLevel.Debug:
-      console.debug(`[DEBUG] ${message}`);
-      break;
-    default:
-      throw new Error("알 수 없는 로그 수준입니다.");
-  }
+    // 마찬기자로 switch 문으로 교체
+    switch (level) {
+        case LogLevel.Info:
+            console.log(`[INFO] ${message}`);
+            break;
+        case LogLevel.Error:
+            console.error(`[ERROR] ${message}`);
+            break;
+        case LogLevel.Debug:
+            console.debug(`[DEBUG] ${message}`);
+            break;
+        default:
+            throw new Error("알 수 없는 로그 수준입니다.");
+    }
 };
 // 테스트 코드
 logMessage("시스템이 시작되었습니다.", LogLevel.Info);
@@ -230,18 +230,20 @@ logMessage("디버깅 모드 활성화", LogLevel.Debug);
 
 */
 function processAny(input) {
-  // 여기에 구현
-  return input.toString();
+    // 여기에 구현
+    return input.toString();
 }
 function processUnknown(input) {
-  // 여기에 구현
-  if (typeof input === "string") {
-    return input.toUpperCase();
-  } else if (typeof input === "number") {
-    return input * 10;
-  } else {
-    throw new Error("지원되지 않는 타입입니다.");
-  }
+    // 여기에 구현
+    if (typeof input === "string") {
+        return input.toUpperCase();
+    }
+    else if (typeof input === "number") {
+        return input * 10;
+    }
+    else {
+        throw new Error("지원되지 않는 타입입니다.");
+    }
 }
 // 테스트 코드
 console.log(processAny("hello")); // 기대 출력: "hello"
