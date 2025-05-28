@@ -7,19 +7,24 @@
 //email: 이메일 (문자열, 선택 속성)
 
 // 인터페이스 작성
-interface Tuser1 {
+interface FirstProblemTuser {
   id: number;
   name: string;
   email?: string;
 }
 // 타입 작성
+type UserType = {
+  id: number;
+  name: string;
+  email?: string;
+};
 
-const user1: Tuser1 = {
+const userFirst: FirstProblemTuser = {
   id: 1,
   name: "Alice",
 };
 
-const userWithEmail: Tuser1 = {
+const userWithEmail: UserType = {
   id: 2,
   name: "Bob",
   email: "bob@example.com",
@@ -35,7 +40,7 @@ address: 객체 ({city: 문자열,zipCode: 숫자})
 */
 
 // User 타입을 작성하세요.
-interface Tuser2 {
+interface SecondProblemTuser {
   id: number;
   name: string;
   address: {
@@ -46,7 +51,7 @@ interface Tuser2 {
 // 여기에 작성
 
 // User 타입을 사용하여 아래 객체를 작성하세요.
-const user2: Tuser2 = {
+const user2: SecondProblemTuser = {
   id: 1,
   name: "Alice",
   address: {
@@ -64,7 +69,7 @@ const user2: Tuser2 = {
 */
 
 // User 인터페이스 작성
-interface Tuser3 {
+interface ThirdProblemTuser {
   id: number;
   name: string;
   email?: string;
@@ -72,12 +77,12 @@ interface Tuser3 {
 // 여기에 작성
 
 // Admin 인터페이스 작성 (User 확장)
-interface Tadmin extends Tuser3 {
+interface Tadmin extends ThirdProblemTuser {
   role: string;
 }
 // 여기에 작성
 
-const normalUser: Tuser3 = {
+const normalUser: ThirdProblemTuser = {
   id: 1,
   name: "Alice",
   email: "alice@example.com",
@@ -99,18 +104,26 @@ const adminUser: Tadmin = {
 */
 
 // Product 타입 작성
-interface Tproduct {
+// interface Tproduct {
+//   id: number;
+//   name: string;
+//   price: number;
+// }
+// 여기에 작성
+type Tproduct = {
   id: number;
   name: string;
   price: number;
-}
-// 여기에 작성
-
+};
 // DiscountedProduct 타입 작성 (Product 확장)
-interface TdiscountedProduct extends Tproduct {
-  discount: number;
-}
+// interface TdiscountedProduct extends Tproduct {
+//   discount: number;
+// }
 // 여기에 작성
+type TdiscountedProduct = Tproduct & {
+  discount: number; // 추가 속성
+};
+// extends or $ {} 속성 추가 가능
 
 const normalProduct: Tproduct = {
   id: 1,
@@ -140,17 +153,20 @@ const discountedProduct: TdiscountedProduct = {
 */
 // Product 타입 작성
 // 여기에 작성
-type Tproduct1 = {
+
+interface FifthProblemTproduct {
   id: number;
   name: string;
   price: number;
-}[];
+}
+
 // Order 타입 작성
-type Torder = {
+
+interface Torder {
   orderId: number;
-  products: Tproduct1;
+  products: FifthProblemTproduct[];
   totalPrice: number;
-};
+}
 // 여기에 작성
 
 // Order 타입을 사용하여 아래 객체를 작성하세요.
@@ -187,14 +203,15 @@ interface BaseUser {
 }
 // AdminUser 타입 작성
 // 여기에 작성
-interface AdminUser extends BaseUser {
+// extend or &
+type AdminUser = BaseUser & {
   role: string;
-}
+};
 // GuestUser 타입 작성
 // 여기에 작성
-interface GuestUser extends BaseUser {
+type GuestUser = BaseUser & {
   visitCount: number;
-}
+};
 // 아래 객체를 작성하세요.
 const admin: AdminUser = {
   id: 1,
@@ -233,13 +250,19 @@ enum TaskStatus {
   InProgress = "InProgress",
   Completed = "Completed",
 }
-
+// 열거형 타입(enumeration type)
 function getStatusMessage1(status: TaskStatus): string {
-  // 여기에 구현
-  if (status === "Pending") return "작업이 대기 중입니다.";
-  if (status === "InProgress") return "작업이 진행 중입니다.";
-  if (status === "Completed") return "작업이 완료되었습니다.";
-  return "err 발생.";
+  // enum -> switch 문 사용하기
+  switch (status) {
+    case TaskStatus.Pending:
+      return "작업이 대기 중 입니다.";
+    case TaskStatus.InProgress:
+      return "작업이 진행 중 입니다.";
+    case TaskStatus.Completed:
+      return "작업이 완료되었습니다.";
+    default:
+      return "알 수 없는 상태입니다.";
+  }
 }
 
 // 테스트 코드
@@ -273,41 +296,47 @@ console.log(getStatusMessage1(TaskStatus.Completed)); // "작업이 완료되었
 */
 // 작업 상태를 나타내는 enum 작성
 // 여기에 작성
-enum TaskStatus1 {
+enum SecondProblemTaskStatus {
   Pending = "Pending",
   InProgress = "InProgress",
   Completed = "Completed",
   Failed = "Failed",
 }
 
-function processTask(status: TaskStatus1, input: unknown): string {
-  // 문자가 아닐떄
+function processTask(status: SecondProblemTaskStatus, input: unknown): string {
+  // 문자가 아닐떄, 타입 상태 확인해서 거르기
   if (typeof input !== "string") {
-    // errd 발생
-    return "입력값은 문자열이어야 합니다.";
+    throw new Error("입력값은 문자열이어야 합니다.");
   }
-  // 각 조건 대문자 소문자 에러 처리하ㄱ
-  if (status === "Pending") return input.toUpperCase();
-  if (status === "InProgress") return input.toLowerCase();
-  if (status === "Completed") return `완료:${input}`;
-  if (status === "Failed") return "작업이 실패했습니다.";
-  return "";
+  // 가독성이나 열거형 타입을 사용할때는 switch 문을 사용하고 err 처리 해주기
+  switch (status) {
+    case SecondProblemTaskStatus.Pending:
+      return input.toUpperCase();
+    case SecondProblemTaskStatus.InProgress:
+      return input.toLowerCase();
+    case SecondProblemTaskStatus.Completed:
+      return `완료: ${input}`;
+    case SecondProblemTaskStatus.Failed:
+      throw new Error("작업이 실패했습니다.");
+    default:
+      throw new Error("알 수 없는 상태입니다.");
+  }
 }
 
 // 테스트 코드
-console.log(processTask(TaskStatus1.Pending, "task1"));
+console.log(processTask(SecondProblemTaskStatus.Pending, "task1"));
 // 기대 출력: "TASK1"
 
-console.log(processTask(TaskStatus1.InProgress, "TaskA"));
+console.log(processTask(SecondProblemTaskStatus.InProgress, "TaskA"));
 // 기대 출력: "taska"
 
-console.log(processTask(TaskStatus1.Completed, "Report1"));
+console.log(processTask(SecondProblemTaskStatus.Completed, "Report1"));
 // 기대 출력: "완료: Report1"
 
-console.log(processTask(TaskStatus1.Failed, "TaskX"));
+console.log(processTask(SecondProblemTaskStatus.Failed, "TaskX"));
 // 에러: 작업이 실패했습니다.
 
-console.log(processTask(TaskStatus1.Pending, 42));
+console.log(processTask(SecondProblemTaskStatus.Pending, 42));
 // 에러: 입력값은 문자열이어야 합니다.
 
 /*
@@ -343,16 +372,19 @@ enum LogLevel {
 type LogFunction = (message: string, level: LogLevel) => void;
 // 로그 함수 구현
 const logMessage: LogFunction = (message, level) => {
-  // 여기에 구현
-  if (level === "Info") {
-    console.log(`[INFO] ${message}`);
-    return;
-  } else if (level === "Error") {
-    console.error(`[ERROR] ${message}`);
-    return;
-  } else if (level === "Debug") {
-    console.debug(`[DEBUG] ${message}`);
-    return;
+  // 마찬기자로 switch 문으로 교체
+  switch (level) {
+    case LogLevel.Info:
+      console.log(`[INFO] ${message}`);
+      break;
+    case LogLevel.Error:
+      console.error(`[ERROR] ${message}`);
+      break;
+    case LogLevel.Debug:
+      console.debug(`[DEBUG] ${message}`);
+      break;
+    default:
+      throw new Error("알 수 없는 로그 수준입니다.");
   }
 };
 
@@ -384,7 +416,7 @@ function processUnknown(input: unknown): string | number {
   } else if (typeof input === "number") {
     return input * 10;
   } else {
-    return "지원되지 않는 타입입니다.";
+    throw new Error("지원되지 않는 타입입니다.");
   }
 }
 

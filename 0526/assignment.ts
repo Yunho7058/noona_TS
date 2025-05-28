@@ -154,7 +154,7 @@ console.log(getAvailableProducts(products));
 // 나이가 없으면 기본값 18 사용, 리턴 타입 작성
 function updateUser(user: { name: string; age?: number }): {
   name: string;
-  age?: number;
+  age: number;
 } {
   const age = typeof user.age === "number" ? user.age : 18;
 
