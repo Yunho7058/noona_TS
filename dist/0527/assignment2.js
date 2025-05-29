@@ -1,5 +1,6 @@
 "use strict";
 // 문제은행 3강- type, interface
+Object.defineProperty(exports, "__esModule", { value: true });
 const userFirst = {
     id: 1,
     name: "Alice",
