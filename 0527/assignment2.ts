@@ -428,3 +428,5 @@ console.log(processAny(true)); // 기대 출력: "true"
 console.log(processUnknown("hello")); // 기대 출력: "HELLO"
 console.log(processUnknown(42)); // 기대 출력: 420
 console.log(processUnknown(true)); // 에러 발생
+
+export {};
