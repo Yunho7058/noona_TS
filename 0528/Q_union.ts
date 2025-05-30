@@ -184,3 +184,5 @@ console.log(areaCalculate({ type: "circle", radius: 7 })); // 153.93804002589985
 // 테스트 코드
 // console.log(areaCalculate({ side: 5 })); // 기대 출력: 25
 // console.log(areaCalculate({ radius: 7 })); // 기대 출력: 153.93804002589985
+
+export {};
