@@ -8,6 +8,7 @@
 문자열 배열: 배열의 모든 문자열을 연결한 결과를 반환합니다.
 객체 { message: string }: message 속성을 대문자로 변환한 문자열을 반환합니다.
 */
+Object.defineProperty(exports, "__esModule", { value: true });
 // 매개변수, 리턴타입 정의필요
 function processInput(input) {
     if (Array.isArray(input)) {
@@ -122,6 +123,3 @@ function areaCalculate(shape) {
 // 테스트 코드
 console.log(areaCalculate({ type: "square", side: 5 })); // 25
 console.log(areaCalculate({ type: "circle", radius: 7 })); // 153.93804002589985
-// 테스트 코드
-// console.log(areaCalculate({ side: 5 })); // 기대 출력: 25
-// console.log(areaCalculate({ radius: 7 })); // 기대 출력: 153.93804002589985
