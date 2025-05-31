@@ -9,6 +9,10 @@ const shippingCosts = {
 };
 // 배송비 계산 함수 작성
 function calculateShippingCost(region, costs) {
+    // costs 에 region 있는지 찾고 없으면 에러
+    if (!(region in costs)) {
+        throw new Error(`지원되지 않는 지역 코드입니다: ${region}`);
+    }
     return costs[region];
 }
 // 테스트 코드
