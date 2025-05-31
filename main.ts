@@ -125,5 +125,113 @@
 /*
 유틸리티 타입?
 공개와 비공개 자료 구분
- omit -> 상관 관계가 있는 타입들 있을때 사용 Omit<특정타입,특정타입에 뺴고싶은 속성>
+ 1. Omit -> 상관 관계가 있는 타입들 있을때 사용 Omit<특정타입,특정타입에 뺴고싶은 속성>
+ 굳이 따로 비밀번호가 있는 타입을 만들필요 없음
+ 뺴기
+
+ 2. Pick 
+  type User = {
+    id: number;
+    name: string;
+    email: string;
+    password: string;
+  };
+
+  // id와 name만 뽑음
+  type PublicProfile = Pick<User, "id" | "name">;
+
+  결과:
+  {
+    id: number;
+    name: string;
+  }
+
+  const profile: PublicProfile = { id: 1, name: "Alice" };
+
+ 3. Partial
+  type Partial<T> = { [P in keyof T]?: T[P] | undefined; } ...
+
+  type User = {
+    name: string;
+    email: string;
+  };
+
+  // 모든 속성이 선택적(optional)이 됨
+  type PartialUser = Partial<User>;
+
+
+  결과 타입:
+  {
+    name?: string;
+    email?: string;
+  }
+
+  const user: PartialUser = {}; // 가능!
+  const user2: PartialUser = { name: "Alice" }; // 이것도 가능
+
+
+ record 타입
+두링뭉실하게 타입 지정?
+
 */
+/*
+extend
+*/
+
+interface Track {
+  //type: "track";
+  title: string;
+  releaseDate: string;
+}
+interface Artist {
+  //type: "artist";
+  name: string;
+  debuYear: number;
+}
+
+// 제너릭 타입과 extends 사용하여 타입 식별하기
+
+// 식별하는 유니온 -> type 라는 키 만들기 type: "track" , type: "artist";
+// 하지만 모든 곳에 타입 넣기는 빡셈
+// 제너릭 타입 T extends "track"| "artist" 둘중 하나여야 한다.
+type SearchItem<T extends "track" | "artist"> = T extends "track"
+  ? Track
+  : Artist;
+const result: SearchItem<"track"> = {
+  //type: "track",
+  title: "string",
+  releaseDate: "string",
+  // name: "string", // track 이기 때문에 오류 발생
+  // debuYear: 5,
+};
+
+// infer 추론해줘
+// 설명 함수타입 지정해주기 T 아무거나 받을수 없기때문에
+// 제너릭 타입에 T 은 무조건 타입만 들어갈수 있음
+type ReturnTypeOfFuntion<T> = T extends (...args: any[]) => infer R ? R : never;
+
+function getUser() {
+  return { name: "123", age: 5 };
+}
+type UserInfo = ReturnTypeOfFuntion<typeof getUser>;
+
+// infer 을 통해 타입을 추론해서 가져옴 userInfo 에 마우스 가져가면, 함수의 리턴값 타입을 보여주고있음
+// 함수 떄도 사용하고, 비동기 요청할때도 추론을 해줌 , 프로미스, 배연안에 있을때도 추론
+
+// 요소 타입에 타입이 올텐데, extends 제약을 걸어 배열만 올수 있다
+// U를 추론해줘 있으면 U 없으면 그대로 T
+type ElementType<T> = T extends (infer U)[] ? U : T;
+type ArrTS = number[];
+
+type SingleN = ElementType<ArrTS>;
+
+// as 는 확정, 별명?  (is 는 이거다 확정)
+// 타입추론이 안될때 as 많이 사용함
+
+let str: unknown = "hellow";
+//console.log(str.length)
+//강제로 string 타입으로 변경
+let newStr = str as string;
+console.log(newStr.length);
+
+// as 사용하기가 힘들어 보임
