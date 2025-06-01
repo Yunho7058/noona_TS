@@ -92,7 +92,7 @@ function processRequest<T extends "text" | "json" | "binary">(
   } else if (type === "json") {
     return `Processed: ${JSON.stringify(data)}`;
   }
-  return "Processed: " + String(data);
+  return "Processed: " + data;
 }
 
 // 테스트 코드
