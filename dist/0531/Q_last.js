@@ -50,7 +50,7 @@ function processRequest(type, data) {
     else if (type === "json") {
         return `Processed: ${JSON.stringify(data)}`;
     }
-    return "Processed: " + String(data);
+    return "Processed: " + data;
 }
 // 테스트 코드
 console.log(processRequest("text", "Hello")); // "Processed: Hello"
